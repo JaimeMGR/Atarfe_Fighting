@@ -38,16 +38,16 @@ include '../esencial/conexion.php';
 
         <form action="api/agregar.php" method="POST" enctype="multipart/form-data">
             <label for="nombre_producto">Nombre:</label>
-            <input type="text" name="nombre_producto" id="nombre_producto" placeholder="Introduce el nombre del producto">
+            <input type="text" name="nombre_producto" id="nombre_producto" placeholder="Introduce el nombre del producto" required>
 
             <label for="compania">Compañía:</label>
-            <input type="text" name="compania" id="compania" placeholder="Introduce la compañía del producto">
+            <input type="text" name="compania" id="compania" placeholder="Introduce la compañía del producto" required>
 
             <label for="precio">Precio (€):</label>
-            <input type="number" step="0.01" name="precio" id="precio" placeholder="Introduce el precio">
+            <input type="number" step="0.01" name="precio" id="precio" placeholder="Introduce el precio" required>
 
             <label for="imagen">Imagen:</label>
-            <input type="file" name="imagen" id="imagen" accept="imagen/*">
+            <input type="file" name="imagen" id="imagen" accept="imagen/*" required>
 
             <label for="categoria">Categoria:</label>
             <select name="categoria" id="categoria">

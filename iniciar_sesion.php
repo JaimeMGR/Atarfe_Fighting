@@ -7,11 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+
+
     $_SESSION['origen'] = $_SERVER['HTTP_REFERER'];
     var_dump($_SESSION['origen']);
-    // verifico que los datos de ingreso no esten vacios
+    // Si están vacíos te redirecciona con error
     if (empty($username) || empty($password)) {
-        
+        header("Location: " . $_SESSION['origen'] . "?error=2");
         exit();
     }
     echo "$username $password <br>";
@@ -29,5 +31,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     }
-    header("Location: ". $_SESSION['origen'] ."?error=1");
+    header("Location: " . $_SESSION['origen'] . "?error=1");
 }

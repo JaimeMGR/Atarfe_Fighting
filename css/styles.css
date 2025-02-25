@@ -20,6 +20,10 @@ header {
     align-items: center;
 }
 
+.error{
+    color:red;
+}
+
 #menuNav {
     justify-content: center;
     text-align: center;

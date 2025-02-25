@@ -86,34 +86,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
             if ($httpCode == 200) {
-                $productosDisponibles = $respuesta["datos"];
-                $paginacion = $respuesta["paginacion"];
+                $respuesta["datos"];
 
-                $actual = $paginacion['actual'];
-                $total = $paginacion['paginas'];
-                $limite = $paginacion['limite'];
-
-                // Procesamos y mostramos las productos
-                foreach ($productosDisponibles as $producto) {
-
-                    echo '            <form action="api/editar.php?id=' . $producto['id_producto'] . '" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="' . $producto['id_producto'] . '">
+                    echo '            <form action="api/editar.php?id=' . $respuesta["datos"]['id_producto'] . '" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="' . $respuesta["datos"]['id_producto'] . '">
 
                         <label for="nombre">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" value="' . $producto['nombre_producto'] . '">
+                        <input type="text" name="nombre" id="nombre" value="' . $respuesta['datos']["nombre_producto"] . '">
 
                         <label for="compania">Compañía:</label>
-                        <input type="text" name="compania" id="compania" value="' . $producto['compania'] . '"
+                        <input type="text" name="compania" id="compania" value="' . $respuesta['datos']['compania'] . '"
 
                         <label for="precio">Precio (€):</label>
-                        <input type="number" step="0.01" name="precio" id="precio" value="' . $producto['precio'] . '">
+                        <input type="number" step="0.01" name="precio" id="precio" value="' . $respuesta['datos']['precio'] . '">
 
                         <label for="imagen">Imagen:</label>
-                        <input type="file" name="imagen"  id="imagen" accept="*.jpg value="' . $producto['precio'] . '"">
+                        <input type="file" name="imagen"  id="imagen" accept="*.jpg" required>
 
                         <label for="categoria">Categoria:</label>
                         <select name="categoria" id="categoria">
-                            <option value="Todos">Todos</option>
+                            <option hidden value="'.$respuesta['datos']['categoria'] .'">Todos</option>
                             <option value="Guantes">Guantes</option>
                             <option value="Pantalones">Pantalones</option>
                             <option value="Rodilleras">Rodilleras</option>
@@ -125,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <button type="submit" class="add">Añadir producto</button>
                     </form>';
-                }
+
             } else {
                 header("Location: ../../index.php");
             }

@@ -17,45 +17,44 @@
 
                 <ul class="list-unstyled mb-0">
                     <li>
-                        <a href="../../index.php">
-                            <button class="btn text-light" type="button">Inicio</button>
-                        </a>
+                        <a href="../../index.php" class="nav-link">Inicio</a>
+                    </li>
+                    <?php if (isset($_SESSION["nombre"])) { ?>
+                        <li>
+                            <a href="../noticia/noticias.php" class="nav-link">Noticias</a>
+                        </li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION["nombre"])) { ?>
+                        <li>
+                            <a href="../cita/clases.php" class="nav-link">Citas</a>
+                        </li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION["nombre"])) { ?>
+                        <li>
+                            <a href="../tienda/tienda.php" class="nav-link">Tienda</a>
+                        </li>
+                    <?php } ?>
+                    <li>
+                        <a href="../servicio/servicios.php" class="nav-link">Servicios</a>
                     </li>
                     <li>
-                        <a href="../noticia/noticias.php">
-                            <button class="btn text-light" type="button">Noticias</button>
-                        </a>
+                        <a href="../entrenadores/entrenadores.php" class="nav-link">Entrenadores</a>
                     </li>
-                    <li>
-                        <a href="../cita/clases.php">
-                            <button class="btn text-light" type="button">Citas</button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../servicio/servicios.php">
-                            <button class="btn text-light" type="button">Servicios</button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../entrenadores/entrenadores.php">
-                            <button class="btn text-light" type="button">Entrenadores</button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../socios/socios.php">
-                            <button class="btn text-light" type="button">Socios</button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../testimonios/testimonios.php">
-                            <button class="btn text-light" type="button">Testimonios</button>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../contacto/contacto.php">
-                            <button class="btn text-light" type="button">Contactos</button>
-                        </a>
-                    </li>
+                    <?php if (isset($_SESSION["nombre"])) { ?>
+                        <li>
+                            <a href="../recetas/recetas.php" class="nav-link">Recetas</a>
+                        </li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION["nombre"])) { ?>
+                        <li>
+                            <a href="../socios/socios.php" class="nav-link">Socios</a>
+                        </li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION["nombre"])) { ?>
+                        <li>
+                            <a href="../contacto/contacto.php" class="nav-link">Contactos</a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
             <!--Grid column-->

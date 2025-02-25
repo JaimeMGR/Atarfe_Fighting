@@ -33,11 +33,11 @@ let lista = {
     },
     "101": {
         "id_producto": 101,
-        "nombre_producto": "Zapatos",
+        "nombre_producto": "Super zapatos",
         "compania": "Adidas",
-        "imagen": "productos\/4f078b17442e79b17e400eb1edd61986.jpg",
+        "imagen": "productos\/3016957cdea97c137406849d42ae71fa.jpg",
         "precio": 40,
-        "categoria": "Zapatillas"
+        "categoria": "Rodilleras"
     },
     "102": {
         "id_producto": 102,

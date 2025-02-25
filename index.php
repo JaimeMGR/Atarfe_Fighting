@@ -86,7 +86,26 @@ while ($row = $result->fetch_assoc()) {
     if (isset($_SESSION["nombre"])) {
       echo formulario_sesion_iniciada($_SESSION["nombre"]);
     } else {
-      echo formulario_para_iniciar_sesion($pagina_actual, $error);
+      echo   "<div class='login-container'>
+      <form class='login-form' action='iniciar_sesion.php' method='POST'>
+          <label for='username'>Usuario:</label>
+          <input type='text' id='username' name='username'  placeholder='Introduce tu usuario'>
+          <label for='password'>Contraseña:</label>
+          <input type='password' id='password' name='password'  placeholder='Introduce tu contraseña'>
+          <input type='hidden' id='origen' name='origen' value='$pagina_actual'>
+          <a href='php/socios/register.php'>¿No tienes cuenta?</a>";
+          if ($error == 1) {
+              echo "<p class='error' style='background:white; color:red'>Usuario o contraseña erróneos</p>
+              <button style='border-radius:5%'type='submit'>Iniciar sesión</button>";
+          } else if ($error == 2) {
+            echo "<p class='error' style='background:white; color:red'>Falta usuario o contraseña</p>
+              <button style='border-radius:5%'type='submit'>Iniciar sesión</button>";
+          }else{
+          echo "<button type='submit'>Iniciar sesión</button>";
+          }
+          
+      echo"</form>
+      </div>";;
     }
 
 

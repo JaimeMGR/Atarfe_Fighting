@@ -36,7 +36,7 @@ $stmt->bind_result($telefono, $nombre, $contrasena, $usuario, $edad, $imagen);
     <main>
         <h1 style="font-weight: bold; text-align:center">Modificar datos del usuario</h1>
         <?php if ($stmt->fetch()) {
-            if (isset($_SESSION["nombre"]) && $pagina_actual == "modificarsocio.php" && $_SESSION["tipo"] == "admin") {
+            if (isset($_SESSION["nombre"]) && $pagina_actual == "modificarsocio.php" && isset($_SESSION["tipo"]) == "admin") {
                 do {
                     // Procesar los resultados
 

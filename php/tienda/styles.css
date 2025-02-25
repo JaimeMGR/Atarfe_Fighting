@@ -356,6 +356,19 @@ product
   border-color: transparent;
   margin: 0 0.5rem;
 }
+
+.toggle-container{
+  justify-self: center;
+  margin: 50px;
+}
+
+.toggle-cart{
+    background: white;
+    border: 1px solid black;
+    font-size: 24px;
+}
+
+
 .product-icon:hover {
   background: var(--clr-primary-7);
 }
@@ -470,8 +483,13 @@ Products Page
   color: var(--clr-grey-5);
 }
 @media screen and (min-width: 768px) {
+  .products-container {
+    display: grid;
+    grid-template-columns: repeat(3, 450px);
+    gap: 1rem;
+  }
   .products {
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 200px 150px;
   }
   .categories {
     position: sticky;

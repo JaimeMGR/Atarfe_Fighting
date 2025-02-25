@@ -23,7 +23,7 @@ if (isset($_GET['categoria'])) {
 $categorias = isset($_GET['Categoria']) ? $_GET['Categoria'] : null;
 
 // Número máximo de productos por página
-$max_productos_por_pagina = 8;
+$max_productos_por_pagina = 10;
 
 // Número de página actual (por defecto es 1)
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;

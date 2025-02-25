@@ -18,7 +18,7 @@ include '../esencial/conexion.php';
 <body style="background:#f4f4f9">
     <?php include '../esencial/header.php' ?>
     <main>
-        <h2 style="font-weight: bold;">Socios</h2>
+        <h2 style="font-weight: bold;"><?php if (isset($_SESSION["nombre"]) && $pagina_actual == "socios.php" && $_SESSION["tipo"] == "socio") { echo "Mi perfil";}else{ echo "Socios"; } ?></h2>
         <section style="text-align:center">
             <?php
             if (isset($_SESSION["nombre"]) && $pagina_actual == "socios.php" && $_SESSION["tipo"] == "socio") {

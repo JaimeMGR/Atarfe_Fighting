@@ -3,7 +3,7 @@ include '../esencial/conexion.php';
 
 // URL del backend (API) con parámetros de paginación
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int)$_GET['limit'] : 10;
+$limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int)$_GET['limit'] : 9;
 // Cambia esta URL al endpoint correcto
 
 if (isset($_GET['categoria'])) {
@@ -23,7 +23,7 @@ if (isset($_GET['categoria'])) {
 $categorias = isset($_GET['Categoria']) ? $_GET['Categoria'] : null;
 
 // Número máximo de productos por página
-$max_productos_por_pagina = 10;
+$max_productos_por_pagina = 9;
 
 // Número de página actual (por defecto es 1)
 $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
@@ -141,7 +141,7 @@ $lista = [];
           // Enlaces a las páginas
           for ($i = 1; $i <= $total; $i++) {
             if ($i == $actual) {
-              echo '<span class="current">' . $i . '</span>';
+              echo '<span class="current btn btn-warning">' . $i . '</span>';
             } else {
               echo '<a class="paginacion btn btn-warning" href="?page=' . $i . '&limit=' . $limite . '">' . $i . '</a>';
             }
@@ -309,22 +309,49 @@ $lista = [];
             <?php
             // Enlace a la página anterior (si no estamos en la primera)
             if ($actual > 1) {
+              // si existe la categoria se añade al enlace
+              if (isset($categoria)) {
+                echo '<a href="?categoria=' . $categoria . '&pagina=' . ($actual - 1) . '&limit=' . $limite . '" class="paginacion btn btn-warning">Anterior</a>';
+              } else if (isset($nombre_producto)) {
+                echo '<a href="?nombre_producto=' . $nombre_producto . '&pagina=' . ($actual - 1) . '&limit=' . $limite . '" class="paginacion btn btn-warning">Anterior</a>';
+                } else if (isset($precio)) {
+                  echo '<a href="?precio=' . $precio . '&pagina=' . ($actual - 1) . '&limit=' . $limite . '" class="paginacion btn btn-warning">Anterior</a>';
+              } else {
               echo '<a class="paginacion btn btn-warning" href="?page=' . ($actual - 1) . '&limit=' . $limite . '">Anterior</a>';
             }
+          }
 
             // Enlaces a las páginas
             for ($i = 1; $i <= $total; $i++) {
               if ($i == $actual) {
                 echo '<span class="current btn btn-warning">' . $i . '</span>';
               } else {
+                if (isset($categoria)) {
+                  echo '<a class="paginacion btn btn-warning" href="?page=' . $i . '&limit=' . $limite . '&categoria=' . $categoria .'">' . $i . '</a>';
+                } else if (isset($nombre_producto)) {
+                  echo '<a class="paginacion btn btn-warning" href="?page=' . $i . '&limit=' . $limite . '&nombre_producto=' . $nombre_producto .'">' . $i . '</a>';
+                } else if (isset($precio)) {
+                  echo '<a class="paginacion btn btn-warning" href="?page=' . $i . '&limit=' . $limite . '&precio=' . $precio .'">' . $i . '</a>';
+                } else {
                 echo '<a class="paginacion btn btn-warning" href="?page=' . $i . '&limit=' . $limite . '">' . $i . '</a>';
               }
             }
+          }
 
             // Enlace a la siguiente página (si no estamos en la última)
             if ($actual < $total) {
+              if (isset($categoria)) {
+                echo '<a class="paginacion btn btn-warning" href="?page=' . ($actual + 1) . '&limit=' . $limite . '&categoria=' . $categoria .'">Siguiente</a>';
+              }else if (isset($nombre_producto)) {
+                echo '<a class="paginacion btn btn-warning" href="?page=' . ($actual + 1) . '&limit=' . $limite . '&nombre_producto=' . $nombre_producto .'">Siguiente</a>';
+              }else if (isset($precio)) {
+                echo '<a class="paginacion btn btn-warning" href="?page=' . ($actual + 1) . '&limit=' . $limite . '&precio=' . $precio .'">Siguiente</a>';
+              }else{
               echo '<a class="paginacion btn btn-warning" href="?page=' . ($actual + 1) . '&limit=' . $limite . '">Siguiente</a>';
             }
+          }
+          
+          
 
             ?></div><?php
                   } else {
@@ -348,6 +375,7 @@ $lista = [];
       } else {
         header("Location: ../../index.php");
       }
+    
 ?>
 </main>
 <?php include '../esencial/footer.php' ?>

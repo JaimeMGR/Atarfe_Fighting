@@ -22,19 +22,6 @@ include '../esencial/conexion.php';
 
         <h1>Añadir Nuevo Producto</h1>
 
-        <?php if (isset($mensaje)) {
-            echo "<p style='color: green;'>" . $mensaje;
-            "</p>";
-            header("Refresh: 3; url=index.php");
-        }
-        ?>
-
-        <?php if (isset($error)) {
-            echo "<p style='color: red;'>" . $error;
-            "</p>";
-        }
-        ?>
-
 
         <form action="api/agregar.php" method="POST" enctype="multipart/form-data">
             <label for="nombre_producto">Nombre:</label>

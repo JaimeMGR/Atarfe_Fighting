@@ -1,7 +1,6 @@
 <?php
 include '../esencial/conexion.php';
 
-if (isset($_SESSION["nombre"]) && $pagina_actual == "creartestimonio.php") {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Recibir los datos del formulario
     $contenido = $_POST['contenido'];
@@ -31,8 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conexion->close();
 }
 
-header("Refresh: 0.1; url=../../index.php");
-}else{
-    header("Location:../../index.php");
-}
+header('Location: ../../index.php');
+
 ?>

@@ -2,12 +2,14 @@
 include '../esencial/conexion.php';
 
 // Número máximo de noticias por página
-$max_noticias_por_pagina = 4;
+$max_noticias_por_pagina = 3;
 
 // Número de página actual (por defecto es 1)
-$pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+// Determinar la página actual
+$pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+if ($pagina_actual < 1) $pagina_actual = 1;
 
-// Calcular el desplazamiento para la paginación
+// Calcular el OFFSET para la consulta
 $offset = ($pagina_actual - 1) * $max_noticias_por_pagina;
 
 // Realizar la consulta para contar el total de noticias
@@ -42,106 +44,117 @@ $stmt->bind_result($id_noticia, $titulo, $contenido, $imagen, $fecha_publicacion
 <body style="background:#f4f4f9">
     <?php include '../esencial/header.php';
     if (isset($_SESSION["nombre"]) && $pagina_actual == "noticias.php" && $_SESSION["tipo"] == "admin" || $_SESSION["tipo"] == "socio") {
-        ?>
-    <main>
-        <h2 style="font-weight: bold;">Noticias</h2>
-        <?php
-        if (isset($_SESSION["nombre"]) && $pagina_actual == "noticias.php" && $_SESSION["tipo"] == "admin") {
-        ?>
-            <section style="text-align:center;">
-                <a class="btn btn-warning" href="añadirnoticia.php" class="btn">Redactar noticia</a>
-            </section>
-        <?php } ?>
-        <br>
-
-        <div class="noticias-container">
+    ?>
+        <main>
+            <h2 style="font-weight: bold;">Noticias</h2>
             <?php
-            if ($stmt->fetch()) {
-                do {
-                    echo "<div class='noticia-item'>";
-                    echo "<div class='noticia-image' ><img loading='lazy' src='" . '../../imagenes/' . $imagen . "' alt='" . $titulo . "'></div>";
-                    echo "<div class='btn btn-danger' style='width:50%'>";
-                    echo "<h3 class='noticia-title'>" . $titulo . "</h3>";
-                    // Limitar el contenido de la noticia a 30 caracteres
-                    $contenido_resumido = substr($contenido, 0, 30) . '...';
-                    echo "<p style='color:white;'>" . $contenido_resumido . "</p>";
-                    echo "<a style='color:white;' href='noticiaentera.php?id=$id_noticia'>Leer más...</a>";
-                    echo "<br>";
-                    echo "<small>Publicado el: " . $fecha_publicacion . "</small>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<br>";
-                } while ($stmt->fetch());
-            } else {
-                echo "<p>No hay noticias disponibles.</p>";
-            }
-            $stmt->close();
-            $conexion->close();
+            if (isset($_SESSION["nombre"]) && $pagina_actual == "noticias.php" && $_SESSION["tipo"] == "admin") {
             ?>
-        </div>
+                <section style="text-align:center;">
+                    <a class="btn btn-warning" href="añadirnoticia.php" class="btn">Redactar noticia</a>
+                </section>
+            <?php } ?>
+            <br>
 
-        <!-- Paginación -->
-        <nav>
-            <ul class="pagination justify-content-center">
-                <!-- Botón "Anterior" -->
-                <?php if ($pagina_actual > 1): ?>
-                    <li class="page-item">
-                        <a class="btn btn-warning" href="?pagina=<?= $pagina_actual - 1 ?>">Anterior</a>
-                    </li>
-                <?php endif; ?>
+            <div class="noticias-container">
+                <?php
+                if ($stmt->fetch()) {
+                    do {
+                        echo "<div class='noticia-item'>";
+                        echo "<div class='noticia-image' ><img loading='lazy' src='" . '../../imagenes/' . $imagen . "' alt='" . $titulo . "'></div>";
+                        echo "<div class='btn btn-danger' style='width:50%'>";
+                        echo "<h3 class='noticia-title'>" . $titulo . "</h3>";
+                        // Limitar el contenido de la noticia a 30 caracteres
+                        $contenido_resumido = substr($contenido, 0, 30) . '...';
+                        echo "<p style='color:white;'>" . $contenido_resumido . "</p>";
+                        echo "<a style='color:white;' href='noticiaentera.php?id=$id_noticia'>Leer más...</a>";
+                        echo "<br>";
+                        echo "<small>Publicado el: " . $fecha_publicacion . "</small>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "<br>";
+                    } while ($stmt->fetch());
+                } else {
+                    echo "<p>No hay noticias disponibles.</p>";
+                }
+                $stmt->close();
+                $conexion->close();
+                ?>
+            </div>
 
-                <!-- Mostrar primera página con puntos suspensivos si es necesario -->
-                <?php if ($pagina_actual > 3): ?>
-                    <li class="page-item">
-                        <a class="btn btn-warning" href="?pagina=1">1</a>
-                    </li>
-                    <li class="page-item disabled">
-                        <span class="btn btn-warning">...</span>
-                    </li>
-                <?php endif; ?>
+            <!-- Paginación -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <?php
+                    $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+                    if ($pagina_actual < 1) $pagina_actual = 1;
+                    // Botón "Anterior"
+                    if ($pagina_actual > 1): ?>
+                        <li class="page-item">
+                            <a class="btn btn-warning" href="?pagina=<?= $pagina_actual - 1 ?>">Anterior</a>
+                        </li>
+                    <?php endif; ?>
 
-                <!-- Páginas cercanas a la página actual -->
-                <?php if ($pagina_actual > 1): ?>
-                    <li class="page-item">
-                        <a class="btn btn-warning" href="?pagina=<?= $pagina_actual - 1 ?>"><?= $pagina_actual - 1 ?></a>
-                    </li>
-                <?php endif; ?>
+                    <?php
+                    // Mostrar siempre la primera página
+                    if ($pagina_actual > 1): ?>
+                        <li class="page-item">
+                            <a class="btn btn-warning" href="?pagina=1">1</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="">...</span>
+                        </li>
+                    <?php endif; ?>
 
-                <!-- Página actual -->
-                <li class="page-item active">
-                    <span class="btn btn-secondary"><?= $pagina_actual ?></span>
-                </li>
+                    <?php
+                    // Mostrar la página anterior al actual, si existe
+                    if ($pagina_actual>2): ?>
+                        <li class="page-item">
+                            <a class="btn btn-warning" href="?pagina=<?= $pagina_actual - 1 ?>"><?= $pagina_actual - 1 ?></a>
+                        </li>
+                    <?php endif; ?>
 
-                <?php if ($pagina_actual < $total_paginas): ?>
-                    <li class="page-item">
-                        <a class="btn btn-warning" href="?pagina=<?= $pagina_actual + 1 ?>"><?= $pagina_actual + 1 ?></a>
+                    <?php
+                    // Mostrar la página actual
+                    ?>
+                    <li class="page-item active">
+                        <span class="btn btn-danger"><?= $pagina_actual ?></span>
                     </li>
-                <?php endif; ?>
 
-                <!-- Mostrar última página con puntos suspensivos si es necesario -->
-                <?php if ($pagina_actual < $total_paginas - 2): ?>
-                    <li class="page-item disabled">
-                        <span class="btn btn-warning">...</span>
-                    </li>
-                    <li class="page-item">
-                        <a class="btn btn-warning" href="?pagina=<?= $total_paginas ?>"><?= $total_paginas ?></a>
-                    </li>
-                <?php endif; ?>
+                    <?php
+                    // Mostrar la página posterior al actual, si existe
+                    if ($pagina_actual < $total_paginas): ?>
+                        <li class="page-item">
+                            <a class="btn btn-warning" href="?pagina=<?= $pagina_actual + 1 ?>"><?=$pagina_actual + 1 ;?></a>
+                        </li>
+                    <?php endif; ?>
 
-                <!-- Botón "Siguiente" -->
-                <?php if ($pagina_actual < $total_paginas): ?>
-                    <li class="page-item">
-                        <a class="btn btn-warning" href="?pagina=<?= $pagina_actual + 1 ?>">Siguiente</a>
-                    </li>
-                <?php endif; ?>
-            </ul>
-        </nav>
-    </main>
+                    <?php
+                    // Mostrar siempre la última página con puntos suspensivos
+                    if ($pagina_actual < $total_paginas - 2): ?>
+                        <li class="page-item disabled">
+                            <span class="">...</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="btn btn-warning" href="?pagina=<?= $total_paginas ?>"><?= $total_paginas ?></a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php
+                    // Botón "Siguiente"
+                    if ($pagina_actual < $total_paginas): ?>
+                        <li class="page-item">
+                            <a class="btn btn-warning" href="?pagina=<?= $pagina_actual + 1 ?>">Siguiente</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
+        </main>
     <?php
-} else {
-    header("Refresh: 0,1; url=../../../../index.php");
-};
-     include '../esencial/footer.php' ?>
+    } else {
+        header("Refresh: 0,1; url=../../../../index.php");
+    };
+    include '../esencial/footer.php' ?>
 </body>
 
 </html>

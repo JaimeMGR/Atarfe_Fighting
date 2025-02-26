@@ -161,7 +161,12 @@ while ($row = $result->fetch_assoc()) {
           <?php } ?>
           <?php if (isset($_SESSION["nombre"])) { ?>
             <li class="nav-item">
-              <a href="php/socios/socios.php" class="nav-link">Socios</a>
+              <a href="php/socios/socios.php" class="nav-link"><?php if (isset($_SESSION["nombre"]) && $_SESSION["tipo"] == "socio") { 
+              echo "Mi perfil";
+            } else{
+              echo "Socios";
+            }
+            ?></a>
             </li>
           <?php } ?>
           <?php if (isset($_SESSION["nombre"])) { ?>
@@ -259,7 +264,7 @@ while ($row = $result->fetch_assoc()) {
 
       <div class="testimonio-container">
         <?php
-        $query = "SELECT testimonio.contenido, testimonio.fecha, socio.nombre AS autor FROM testimonio JOIN socio ON testimonio.autor = socio.id_socio ORDER BY testimonio.fecha DESC LIMIT 3";
+        $query = "SELECT testimonio.contenido, testimonio.fecha, socio.nombre, socio.usuario AS autor FROM testimonio JOIN socio ON testimonio.autor = socio.id_socio ORDER BY RAND() DESC LIMIT 3";
         $result = $conexion->query($query);
 
         if ($result->num_rows > 0) {

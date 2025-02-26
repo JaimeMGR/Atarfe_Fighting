@@ -37,4 +37,4 @@ if ($stmt->execute()) {
 // Cerrar la declaración y la conexión
 $stmt->close();
 
-header('Refresh: 0.1; url=noticias.php');
+header('Location:noticias.php');

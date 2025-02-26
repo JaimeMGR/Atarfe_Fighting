@@ -97,10 +97,10 @@ if (isset($_GET["error"])) {
         <?php } ?>
         <?php if (isset($_SESSION["nombre"])) { ?>
           <li class="nav-item">
-            <a href="../socios/socios.php" class="nav-link"><?php if (isset($_SESSION["nombre"]) && isset($_SESSION["tipo"]) == "admin") { 
-              echo "Socios";
-            } else if (isset($_SESSION["nombre"]) && isset($_SESSION["tipo"]) == "socio") {
+            <a href="../socios/socios.php" class="nav-link"><?php if (isset($_SESSION["nombre"]) && $_SESSION["tipo"] == "socio") { 
               echo "Mi perfil";
+            } else{
+              echo "Socios";
             }
             ?></a>
           </li>

@@ -21,7 +21,7 @@ include '../esencial/conexion.php';
 
 <?php include '../esencial/header.php';?>
 <?php
-    if (isset($_SESSION["nombre"]) && $pagina_actual == "noticias.php" &&  $_SESSION["tipo"] == "admin") {?>
+    if (isset($_SESSION["nombre"]) && $pagina_actual == "añadirnoticia.php" &&  $_SESSION["tipo"] == "admin") {?>
     <main>
         <h2 style="font-weight: bold;">Nuevo Servicio</h2>
 

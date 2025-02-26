@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body style="background:#f4f4f9">
     <?php include '../esencial/header.php' ?>
     <main>
-        <h2 style="font-weight: bold;">Nuevo Servicio</h2>
+        <h2 style="font-weight: bold;">Nuevo servicio</h2>
 
         <form action="añadirservicio.php" method="post" enctype="multipart/form-data">
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" id="nombre" placeholder="Introduzca el título de la noticia">
 
             <label for="precio">Precio:</label>
-            <input type="time" name="precio" id="precio">
+            <input type="number" name="precio" id="precio" placeholder="Introduzca el precio de la tarifa">
 
             <label for="duracion">Duración:</label>
             <input type="number" name="duracion" id="duracion" placeholder="Introduzca la duración en minutos">

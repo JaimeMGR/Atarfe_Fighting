@@ -23,7 +23,7 @@ include '../esencial/conexion.php';
 <?php
     if (isset($_SESSION["nombre"]) && $pagina_actual == "añadirnoticia.php" &&  $_SESSION["tipo"] == "admin") {?>
     <main>
-        <h2 style="font-weight: bold;">Nuevo Servicio</h2>
+        <h2 style="font-weight: bold;">Redactar noticia</h2>
 
         <form action="crearnoticia.php" method="post" enctype="multipart/form-data">
             <label for="titulo">Titulo:</label>

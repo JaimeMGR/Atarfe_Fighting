@@ -26,7 +26,7 @@ include '../esencial/conexion.php';
         if (isset($_SESSION["nombre"]) && $pagina_actual == "servicios.php" && $_SESSION["tipo"] == "admin") {
         ?>
             <section style="text-align:center">
-                <a class="btn btn-warning" href="añadirservicio.php">Añadir servicios</a>
+                <a class="btn btn-warning" href="añadirservicio.php">Añadir servicio</a>
             </section>
         <?php
         }
